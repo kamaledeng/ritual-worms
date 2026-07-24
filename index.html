@@ -926,6 +926,7 @@ button.quitbtn:hover{background:#3a2a30}
     walletBtn.textContent = '⛓ Connect Wallet';
     walletBtn.classList.remove('connected');
     updateStartGate();
+    quitToMenu(); // wallet terputus = pertandingan berhenti, kembali ke menu terkunci
   }
 
   async function refreshWallet() {
