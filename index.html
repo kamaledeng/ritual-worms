@@ -59,6 +59,15 @@
   .gallery button.sel0{border-color:var(--blue);box-shadow:0 0 0 3px rgba(94,159,232,0.4)}
   .gallery button.sel1{border-color:var(--red);box-shadow:0 0 0 3px rgba(233,115,102,0.4)}
   .gallery button.upl{border-style:dashed;font-size:20px}
+  .worm-slots{display:flex;gap:10px;justify-content:center;align-items:flex-start;margin:2px 0 4px}
+  .worm-slot{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .worm-slot.hidden{display:none}
+  .slot-char{width:44px;height:44px;border-radius:50%;border:2px solid var(--border);background:var(--raised);padding:0;overflow:hidden;cursor:pointer;font-size:18px;line-height:1;transition:transform .1s}
+  .slot-char img{width:100%;height:100%;object-fit:cover;display:block}
+  .slot-char:hover{transform:scale(1.05)}
+  .slot-char.sel0{border-color:var(--blue);box-shadow:0 0 0 3px rgba(94,159,232,0.4)}
+  .slot-char.sel1{border-color:var(--red);box-shadow:0 0 0 3px rgba(233,115,102,0.4)}
+  .slot-name{width:92px;text-align:center;font-size:12px;padding:5px 6px;border:1px solid var(--border);border-radius:6px;background:var(--raised);color:var(--text)}
   .credit{position:fixed;bottom:8px;right:12px;font-size:11px;color:rgba(255,255,255,0.55);z-index:999;pointer-events:auto;letter-spacing:.3px}
   .credit a{color:rgba(255,255,255,0.75);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3)}
   .credit a:hover{color:#fff;border-color:#fff}
@@ -150,8 +159,8 @@ button.quitbtn:hover{background:#3a2a30}
       <img class="ritual-logo-big" src="data:image/png;base64,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" alt="Ritual"><h2><span class="ritual-name">RITUAL</span> Worms <em>Bomb 'Em All!</em></h2>
       <p>Two worm teams trade bombs across destructible terrain. Watch the <b>wind</b>, set your <b>angle</b>, hold for <b>power</b>, and... BOOM! 💥</p>
       <div class="pickrow">
-        <div class="pick"><div class="pick-title blue">Blue Team Characters</div><div class="gallery" data-team="0"></div><input class="nameinput" id="teamName0" maxlength="16" value="Blue Team" placeholder="Team name"><input class="nameinput" id="wormNames0" maxlength="48" value="Wormy, Boomer, Squiggle" placeholder="Worm names, comma separated"><input type="file" id="charUpload0" accept="image/*" style="display:none"></div>
-        <div class="pick"><div class="pick-title red">Red Team Characters</div><div class="gallery" data-team="1"></div><input class="nameinput" id="teamName1" maxlength="16" value="Red Team" placeholder="Team name"><input class="nameinput" id="wormNames1" maxlength="48" value="Rex, Turbo, Spike" placeholder="Worm names, comma separated"><input type="file" id="charUpload1" accept="image/*" style="display:none"></div>
+        <div class="pick"><div class="pick-title blue">Blue Team</div><input class="nameinput" id="teamName0" maxlength="16" value="Blue Team" placeholder="Team name"><div class="worm-slots" id="wormSlots0"></div><div class="gallery" data-team="0"></div><input type="file" id="charUpload0" accept="image/*" style="display:none"></div>
+        <div class="pick"><div class="pick-title red">Red Team</div><input class="nameinput" id="teamName1" maxlength="16" value="Red Team" placeholder="Team name"><div class="worm-slots" id="wormSlots1"></div><div class="gallery" data-team="1"></div><input type="file" id="charUpload1" accept="image/*" style="display:none"></div>
       </div>
       <div class="sizerow">
         <div class="sizelabel">Team Size</div>
@@ -227,7 +236,8 @@ button.quitbtn:hover{background:#3a2a30}
   );
   const charImgs = {};
   for (const c of CHAR_LIST) if (c.img) { const im = new Image(); im.src = c.img; charImgs[c.id] = im; }
-  let teamChar = ['cacing','cacing'];
+  let teamChar = [['cacing','cacing','cacing'], ['cacing','cacing','cacing']];
+  let activeSlot = [0, 0];
 
   // ---------- senjata ----------
   const WEAPONS = [
@@ -323,7 +333,7 @@ button.quitbtn:hover{background:#3a2a30}
       for (let i=0;i<teamSize;i++) {
         const x = spots[t][i] + (Math.random()*30-15);
         worms.push({
-          team:t, name:NAMES[t][i], x, y: groundY(x)-1,
+          team:t, idx:i, name:NAMES[t][i], x, y: groundY(x)-1,
           hp:100, vx:0, vy:0, grounded:true, fallFrom:null,
           aim: t===0 ? 55 : 125, dead:false,
         });
@@ -713,7 +723,7 @@ button.quitbtn:hover{background:#3a2a30}
       ctx.beginPath(); ctx.moveTo(cxx-9,cyy); ctx.lineTo(cxx+9,cyy); ctx.moveTo(cxx,cyy-9); ctx.lineTo(cxx,cyy+9); ctx.stroke();
       // arrow above active worm
       const bob = Math.sin(performance.now()/180)*3;
-      const abase = teamChar[aw.team]!=='cacing' ? 48 : 34;
+      const abase = teamChar[aw.team][aw.idx]!=='cacing' ? 48 : 34;
       ctx.fillStyle = TEAM[aw.team].color;
       ctx.beginPath();
       ctx.moveTo(aw.x, aw.y-abase+bob); ctx.lineTo(aw.x-6, aw.y-abase-10+bob); ctx.lineTo(aw.x+6, aw.y-abase-10+bob);
@@ -767,7 +777,7 @@ button.quitbtn:hover{background:#3a2a30}
 
   function drawWorm(w) {
     const t = TEAM[w.team];
-    const cid = teamChar[w.team];
+    const cid = teamChar[w.team][w.idx];
     const im = charImgs[cid];
     let topY;
     if (cid !== 'cacing' && im && im.complete) {
@@ -851,8 +861,10 @@ button.quitbtn:hover{background:#3a2a30}
     for (let t=0;t<2;t++) {
       const tn = document.getElementById('teamName'+t).value.trim();
       TEAM[t].name = tn || DEFAULT_TEAM_NAMES[t];
-      const parts = document.getElementById('wormNames'+t).value.split(',').map(x => x.trim()).filter(Boolean);
-      for (let i=0;i<3;i++) NAMES[t][i] = parts[i] || DEFAULT_NAMES[t][i];
+      for (let i=0;i<3;i++) {
+        const slotInp = document.getElementById('slotName'+t+'-'+i);
+        NAMES[t][i] = (slotInp ? slotInp.value.trim() : '') || DEFAULT_NAMES[t][i];
+      }
     }
     genTerrain();
     makeWorms();
@@ -882,8 +894,9 @@ button.quitbtn:hover{background:#3a2a30}
         const existing = CHAR_LIST.find(c => c.id === id);
         if (existing) { existing.img = data; } else { CHAR_LIST.push({ id: id, name: 'My Character', img: data }); }
         const im2 = new Image(); im2.src = data; charImgs[id] = im2;
-        teamChar[team] = id;
+        teamChar[team][activeSlot[team]] = id;
         buildGalleries();
+        buildSlots();
         showToast('Custom character loaded! \ud83d\udcf7');
       };
       img.src = reader.result;
@@ -900,8 +913,8 @@ button.quitbtn:hover{background:#3a2a30}
         b.title = c.name;
         if (c.img) { const imEl = document.createElement('img'); imEl.src = c.img; imEl.alt = c.name; b.appendChild(imEl); }
         else b.textContent = '\ud83d\udc1b';
-        if (teamChar[team]===c.id) b.classList.add('sel'+team);
-        b.addEventListener('click', () => { teamChar[team]=c.id; buildGalleries(); });
+        if (teamChar[team][activeSlot[team]]===c.id) b.classList.add('sel'+team);
+        b.addEventListener('click', () => { teamChar[team][activeSlot[team]]=c.id; buildGalleries(); buildSlots(); });
         g.appendChild(b);
       }
       const ub = document.createElement('button');
@@ -912,7 +925,47 @@ button.quitbtn:hover{background:#3a2a30}
       g.appendChild(ub);
     });
   }
+  function buildSlots() {
+    for (let t=0;t<2;t++) {
+      const container = document.getElementById('wormSlots'+t);
+      container.innerHTML = '';
+      for (let i=0;i<3;i++) {
+        const slot = document.createElement('div');
+        slot.className = 'worm-slot' + (i >= teamSize ? ' hidden' : '');
+        slot.dataset.slot = i;
+        const cid = teamChar[t][i];
+        const c = CHAR_LIST.find(x => x.id === cid) || CHAR_LIST[0];
+        const btn = document.createElement('button');
+        btn.className = 'slot-char' + (activeSlot[t]===i ? ' sel'+t : '');
+        btn.title = c.name + ' (Worm ' + (i+1) + ')';
+        if (c.img) { const im = document.createElement('img'); im.src = c.img; im.alt = c.name; btn.appendChild(im); }
+        else btn.textContent = '\ud83d\udc1b';
+        btn.addEventListener('click', () => { activeSlot[t]=i; buildGalleries(); buildSlots(); });
+        const inp = document.createElement('input');
+        inp.className = 'nameinput slot-name';
+        inp.id = 'slotName'+t+'-'+i;
+        inp.value = NAMES[t][i];
+        inp.placeholder = 'Worm '+(i+1);
+        inp.maxLength = 14;
+        inp.addEventListener('change', () => { NAMES[t][i] = inp.value.trim() || DEFAULT_NAMES[t][i]; });
+        slot.appendChild(btn);
+        slot.appendChild(inp);
+        container.appendChild(slot);
+      }
+    }
+  }
+  function updateSlotVisibility() {
+    for (let t=0;t<2;t++) {
+      const container = document.getElementById('wormSlots'+t);
+      Array.from(container.children).forEach((slot, i) => {
+        slot.classList.toggle('hidden', i >= teamSize);
+      });
+      if (activeSlot[t] >= teamSize) activeSlot[t] = 0;
+      buildGalleries(); buildSlots();
+    }
+  }
   buildGalleries();
+  buildSlots();
   for (const t of [0, 1]) {
     const inp = document.getElementById('charUpload' + t);
     inp.addEventListener('change', () => { handleCharUpload(t, inp.files[0]); inp.value = ''; });
@@ -922,6 +975,7 @@ button.quitbtn:hover{background:#3a2a30}
     b.addEventListener('click', () => {
       teamSize = +b.dataset.size;
       document.querySelectorAll('.sizebtn').forEach(x => x.classList.toggle('sel', x === b));
+      updateSlotVisibility();
     });
   });
 
